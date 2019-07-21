@@ -12,7 +12,6 @@ class leetcode {
         System.out.println('Z' - 'A');
     }
     public int[] deckRevealedIncreasing(int[] deck) {
-        int[] res = new int[deck.length];
         Queue<Integer> queue = new LinkedList<Integer>();
         Arrays.sort(deck);
         for(int i = deck.length - 1;i >= 0;i--){
