@@ -15,6 +15,7 @@ class leetcode {
     public static void main(String[] args) {
   
     }
+    //20200118
     public int numEquivDominoPairs(int[][] dominoes) {
         int[] count = new int[100];
         int ans = 0, index = 0;
