@@ -15,6 +15,12 @@ class leetcode {
     public static void main(String[] args) {
         
     }
+    /**
+     *
+     * 從局部找出最佳解後直接返回,遞歸後返回
+     * 
+     * 
+     */
     public int pathSum(TreeNode root, int sum) {
         if (root == null) return 0;
         return paths(root, sum) 
