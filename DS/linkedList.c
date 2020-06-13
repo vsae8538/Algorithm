@@ -43,6 +43,23 @@ void printNodes(Node* head){
 }
 
 
+Node* reverse(Node* head){
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+    
+    Node *tmp = NULL;
+    Node *current = head;
+    while(current->next != NULL){ 
+        head = current->next;
+        current->next = tmp;
+        tmp = current;
+        current = head;
+    }
+    current->next = tmp;
+    return head;
+}
+
 int main(int argc, char *argv[]){
     Node *list;
     list = createNode(10);
@@ -53,6 +70,8 @@ int main(int argc, char *argv[]){
     }
     printNodes(list);
     deleteNode(list, 20);
+    printNodes(list);
+    list = reverse(list);
     printNodes(list);
     return 0;
 }
