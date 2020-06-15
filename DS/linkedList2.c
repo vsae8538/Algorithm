@@ -21,6 +21,26 @@ Node* createNode(int data){
     return pt;
 }
 
+Node* deleteNode(Node *head, int data){
+    Node *pt = head;
+    while(pt != NULL){
+        if(pt->data == data){
+            if(pt->lNode != NULL && pt->rNode != NULL){
+                pt->lNode->rNode = pt->rNode;
+                pt->rNode->lNode = pt->lNode;  
+            }else if(pt->lNode == NULL &&  pt->rNode != NULL){
+                pt->rNode->lNode = NULL;
+                head = pt->rNode;
+            }else if(pt->lNode != NULL &&  pt->rNode == NULL){
+                pt->lNode->rNode = NULL;
+            }
+            free(pt);
+            return head;   
+        }
+        pt = pt->rNode;
+    }
+}
+
 void printNodes(Node* head){
     Node *pt = head;
     while(pt != NULL){
@@ -39,7 +59,13 @@ int main(int argc, char *argv[]){
         Node *tmp = pt;
         pt = pt->rNode;
         pt->lNode = tmp;
+        //printf("r:%d l:%d\n", tmp->rNode->data, pt->lNode->data);
     }
+    printNodes(list);
+    list = deleteNode(list, 30);
+    list = deleteNode(list, 20);
+    list = deleteNode(list, 10);
+     list = deleteNode(list, 50);
     printNodes(list);
     return 0;
 }
