@@ -9,3 +9,9 @@ class Solution:
             k += 2
             j += 1
         return res
+
+        # res = []
+        # for i in range(n):
+        #     res.append(nums[i])
+        #     res.append(nums[i+n])
+        # return res
