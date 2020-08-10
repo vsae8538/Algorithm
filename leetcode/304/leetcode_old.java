@@ -23,7 +23,16 @@ class leetcode {
         public int[][] arr;
 
         public NumMatrix(int[][] matrix) {
-            arr = matrix;
+            if(matrix.length == 0 || matrix == null){
+                arr = null;
+            }else{
+                arr = new int[matrix.length][matrix[0].length];
+                for(int i = 0;i < matrix.length;i++){
+                    for(int j = 0;j < matrix[0].length;j++){
+                        arr[i][j] = matrix[i][j];
+                    }
+                }
+            }
         }
         
         public int sumRegion(int row1, int col1, int row2, int col2) {
