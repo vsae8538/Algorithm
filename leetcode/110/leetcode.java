@@ -25,7 +25,6 @@ class leetcode {
         boolean b = true;
         int left = getTreeDepth(root.left, 0);
         int right = getTreeDepth(root.right, 0);
-        System.out.println("left:"+left+"right:"+right);
         if(Math.abs(left - right) > 1){
             b = false;
         }
