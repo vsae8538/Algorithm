@@ -13,35 +13,52 @@ import java.util.Stack;
 
 class Solution {
 
-    public int maxNumberOfBalloons(String text) {
-        
-        Map<Character,Integer> map = new HashMap<>();
-        map.put('b', 0);
-        map.put('a', 0);
-        map.put('l', 0);
-        map.put('o', 0);
-        map.put('n', 0);
-        int res = 0;
-        for(char c : text.toCharArray()){
-            if(c == 'b') map.put(c, map.get(c)+1);
-            else if(c == 'a') map.put(c, map.get(c)+1);
-            else if(c == 'l') map.put(c, map.get(c)+1);
-            else if(c == 'o') map.put(c, map.get(c)+1);
-            else if(c == 'n') map.put(c, map.get(c)+1);
-            if(map.get('b') > 0 && map.get('a') > 0 && map.get('n') > 0){
-                if(map.get('l') > 1 && map.get('o') > 1){
-                    res++;
-                    map.put('b', map.get('b')-1);
-                    map.put('a', map.get('a')-1);
-                    map.put('l', map.get('l')-2);
-                    map.put('o', map.get('o')-2);
-                    map.put('n', map.get('n')-1);
-                }
-            }                
-        }
 
-        return res;
+    public int maxNumberOfBalloons(String text) {
+        int[] letters = new int[26];
+        for(char ch :text.toCharArray()){
+            letters[ch - 97] ++;
+        }
+        letters['l' - 97] /= 2;
+        letters['o' - 97] /= 2;
+        int min = Integer.MAX_VALUE;
+        for(char ch : "balon".toCharArray()){
+            if(letters[ch - 97] < min){
+                min = letters[ch - 97];
+            }
+        }
+        return min;
     }
+
+    // public int maxNumberOfBalloons(String text) {
+        
+    //     Map<Character,Integer> map = new HashMap<>();
+    //     map.put('b', 0);
+    //     map.put('a', 0);
+    //     map.put('l', 0);
+    //     map.put('o', 0);
+    //     map.put('n', 0);
+    //     int res = 0;
+    //     for(char c : text.toCharArray()){
+    //         if(c == 'b') map.put(c, map.get(c)+1);
+    //         else if(c == 'a') map.put(c, map.get(c)+1);
+    //         else if(c == 'l') map.put(c, map.get(c)+1);
+    //         else if(c == 'o') map.put(c, map.get(c)+1);
+    //         else if(c == 'n') map.put(c, map.get(c)+1);
+    //         if(map.get('b') > 0 && map.get('a') > 0 && map.get('n') > 0){
+    //             if(map.get('l') > 1 && map.get('o') > 1){
+    //                 res++;
+    //                 map.put('b', map.get('b')-1);
+    //                 map.put('a', map.get('a')-1);
+    //                 map.put('l', map.get('l')-2);
+    //                 map.put('o', map.get('o')-2);
+    //                 map.put('n', map.get('n')-1);
+    //             }
+    //         }                
+    //     }
+
+    //     return res;
+    // }
 }
 
 
