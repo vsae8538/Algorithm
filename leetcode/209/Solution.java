@@ -14,35 +14,54 @@ import java.util.Stack;
 class Solution {
 
 
+
+
         /**
          * 滑動窗口
          * @param s
          * @param nums
          * @return
          */
+
+
         public int minSubArrayLen(int s, int[] nums) {
-            if(nums.length < 1 || nums == null) return 0;
-            int l = 0,r = 0;
-            int res = Integer.MAX_VALUE, len = 0,sum = 0;
-            while(l <= r && r < nums.length){
-                sum += nums[r++];
-                len++;
-                if(sum >= s){
-                    res = Math.min(res, len);
-                    l++;
-                    r = l + 1;
-                    len = 0;
-                    sum = 0;
-                }else if(r == nums.length-1){
-                    l++;
-                    r = l + 1;
-                    len = 0;
-                    sum = 0;
+            int l = 0,r = 0,cur = 0,res = Integer.MAX_VALUE;
+            while(r < nums.length){
+                cur += nums[r];   
+                while(cur >= s){
+                    res = Math.min(res,r-l+1);
+                    cur -= nums[l++];
                 }
+                r++;
             }
-            if(res < Integer.MAX_VALUE) return res;
-            else return 0;
+            return res== Integer.MAX_VALUE ? 0 : res;
         }
+
+
+                /**
+         * 滑動窗口
+         * @param s
+         * @param nums
+         * @return
+         */
+
+        // public int minSubArrayLen(int s, int[] nums) {
+        //     if(nums.length < 1 || nums == null) return 0;
+        //     int l = 0,r = 0;
+        //     int res = Integer.MAX_VALUE, len = 0,sum = 0;
+        //     while(r < nums.length){
+        //         sum += nums[r++];
+        //         len++;
+        //         if(sum >= s){
+        //             res = Math.min(res, len);
+        //             l++;
+        //             len = 0;
+        //             sum = nums[l];
+        //         }
+        //     }
+        //     if(res < Integer.MAX_VALUE) return res;
+        //     else return 0;
+        // }
 }
 
 
