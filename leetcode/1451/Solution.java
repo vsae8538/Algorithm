@@ -20,7 +20,7 @@ class Solution {
 
     /**
      * java對於引用類型都是穩定排序
-     * 
+     * merge sort(合併排序) 
      */
 
     public String arrangeWords(String text) {
