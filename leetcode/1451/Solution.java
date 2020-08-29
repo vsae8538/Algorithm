@@ -19,6 +19,21 @@ import java.util.TreeSet;
 class Solution {
 
     /**
+     * java對於引用類型都是穩定排序
+     * 
+     */
+
+    public String arrangeWords(String text) {
+        String t[]=text.toLowerCase().split(" ");
+        Arrays.sort(t,(s1,s2)->{return s1.length()-s2.length();});
+        String ans="";
+        for(String a:t){
+            ans+=a+" ";
+        }
+        return (ans.substring(0,1).toUpperCase()+ans.substring(1)).trim();
+    }
+
+    /**
      * Hash
      * 
      *
