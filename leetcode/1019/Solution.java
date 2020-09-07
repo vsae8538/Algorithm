@@ -20,30 +20,46 @@ import java.util.TreeSet;
 
 
 class Solution {
+
     public int[] nextLargerNodes(ListNode head) {
-        int idx = 0;
-        int[] arr = travel(head);
-        int[] res = new int[arr.length];
-        for(int i = 0;i < arr.length-1;i++){
-            for(int j = i+1;j < arr.length;j++){
-                if(arr[j] > arr[i]){
-                    res[i] = arr[j];
-                    break;
-                }
-            }
+        ArrayList<Integer> A = new ArrayList<>();
+        for (ListNode node = head; node != null; node = node.next)
+            A.add(node.val);
+        int[] res = new int[A.size()];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < A.size(); ++i) {
+            while (!stack.isEmpty() && A.get(stack.peek()) < A.get(i))
+                res[stack.pop()] = A.get(i);
+            stack.push(i);
         }
         return res;
     }
 
-    public int[] travel(ListNode head){
-        List<Integer> list = new ArrayList<>();
-        ListNode pt = head;
-        while(pt != null){
-            list.add(pt.val);
-            pt = pt.next;
-        }
-        return list.stream().mapToInt(i->i).toArray();
-    }
+
+    // public int[] nextLargerNodes(ListNode head) {
+    //     int idx = 0;
+    //     int[] arr = travel(head);
+    //     int[] res = new int[arr.length];
+    //     for(int i = 0;i < arr.length-1;i++){
+    //         for(int j = i+1;j < arr.length;j++){
+    //             if(arr[j] > arr[i]){
+    //                 res[i] = arr[j];
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return res;
+    // }
+
+    // public int[] travel(ListNode head){
+    //     List<Integer> list = new ArrayList<>();
+    //     ListNode pt = head;
+    //     while(pt != null){
+    //         list.add(pt.val);
+    //         pt = pt.next;
+    //     }
+    //     return list.stream().mapToInt(i->i).toArray();
+    // }
 
 }
 
