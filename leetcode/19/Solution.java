@@ -21,42 +21,65 @@ import java.util.TreeSet;
 
 class Solution {
 
-
+    /**
+     * 快慢指針
+     * 
+        1->2->3->4->5
+     */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode pt = head;
-        int len = 0;
-        while(pt != null){
-            len++;
-            pt = pt.next;
-        }
-        int pos = len - n > 0 ? len-n:0;
-        int count = 1;
-        pt = head;
-        if(pos == 0){
-            if(pt.next != null){
-                head = pt.next;
-                pt = null;
-            }else{
-                return null;
-            }
+    
+        ListNode start = new ListNode(0);
+        ListNode slow = start, fast = start;
+        slow.next = head;
+        
+        for(int i=1; i<=n+1; i++)   {
+            fast = fast.next;
         }
 
-        while(pt != null){
-            if(count == pos){
-                if(pt.next.next != null){
-                    pt.next = pt.next.next;
-                }else{
-                    pt.next = null;
-                }
-                break;
-            }
-            pt = pt.next;
-            count++;
-            
+        while(fast != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
 
-        return head;
+        slow.next = slow.next.next;
+        return start.next;
     }
+
+    // public ListNode removeNthFromEnd(ListNode head, int n) {
+    //     ListNode pt = head;
+    //     int len = 0;
+    //     while(pt != null){
+    //         len++;
+    //         pt = pt.next;
+    //     }
+    //     int pos = len - n > 0 ? len-n:0;
+    //     int count = 1;
+    //     pt = head;
+    //     if(pos == 0){
+    //         if(pt.next != null){
+    //             head = pt.next;
+    //             pt = null;
+    //         }else{
+    //             return null;
+    //         }
+    //     }
+
+    //     while(pt != null){
+    //         if(count == pos){
+    //             if(pt.next.next != null){
+    //                 pt.next = pt.next.next;
+    //             }else{
+    //                 pt.next = null;
+    //             }
+    //             break;
+    //         }
+    //         pt = pt.next;
+    //         count++;
+            
+    //     }
+
+    //     return head;
+    // }
 
     
 }
