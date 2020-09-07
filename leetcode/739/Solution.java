@@ -23,7 +23,7 @@ class Solution {
 
     /**
      * 單調棧
-     * 
+     * Monotonous stack
      */
     public int[] dailyTemperatures(int[] T) {
         Stack<Integer> stack = new Stack<>();
