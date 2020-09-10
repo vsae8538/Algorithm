@@ -20,22 +20,24 @@ import java.util.TreeSet;
 
 
 class Solution {
+
+    /**
+     * 滑動窗口
+     */
     public List<Integer> minSubsequence(int[] nums) {
         Arrays.sort(nums);
         int sum = 0;
         for(int i : nums) sum += i;
         int l = nums.length -1, r = nums.length -1;
         List<Integer> res = new ArrayList<>();
-        int max = 0;
         int s = 0;
         while(l >= 0){
             s += nums[l];
-            if(s > max && s > (sum - s)){
+            if(s > (sum - s)){
                 while(r >= l){
                     res.add(nums[r]);
                     r--;
                 }
-                max = s;
                 break;
             }
             l--;
