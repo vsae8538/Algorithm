@@ -21,27 +21,27 @@ import java.util.TreeSet;
 
 class Solution {
 
+
     /**
-     * 優化
-     * 42%
+     * TreeSet
+     * 5%
      */
     public ListNode deleteDuplicates(ListNode head) {
-        if(head == null) return null;
-        Set<Integer> set = new HashSet<>();
-        int preVal = head.val; 
-        for(ListNode pt = head.next;pt != null;pt = pt.next){
-            if(pt.val == preVal)
+        SortedSet<Integer> set = new TreeSet<Integer>();
+        SortedSet<Integer> avSet = new TreeSet<Integer>();
+        for(ListNode pt = head;pt != null;pt = pt.next){
+            if(set.contains(pt.val)){
+                set.remove(pt.val);
+                avSet.add(pt.val);
+            }else if(!avSet.contains(pt.val)){
                 set.add(pt.val);
-            preVal = pt.val;
+            }
         }
         ListNode res = new ListNode(0);
         ListNode cur = res;
-        
-        for(ListNode pt = head;pt != null;pt = pt.next){
-            if(!set.contains(pt.val)){
-                cur.next = new ListNode(pt.val);
-                cur = cur.next; 
-            }
+        for(int i : set){
+            cur.next = new ListNode(i); 
+            cur = cur.next;
         }
         return res.next;
     }
