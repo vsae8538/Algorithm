@@ -29,7 +29,7 @@ class Solution {
             if((r - l + 1) % len == 0){
                 int count = 0;
                 int i = l;
-                while(i < r){
+                while(i <= r){
                     char ct = s2.charAt(i);
                     if(map[ct - 'a'] != 0){
                         count++;
