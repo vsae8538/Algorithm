@@ -19,10 +19,7 @@ import java.util.TreeSet;
 
 
 class Solution {
-    /**
-     * 單調棧
-     * 
-     */
+
     public int[] kWeakestRows(int[][] mat, int k) {
         int n = mat.length, m = mat[0].length;
         int[] map = new int[n];
