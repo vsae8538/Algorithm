@@ -18,33 +18,37 @@ import java.util.TreeSet;
 
 class Solution {
 
-
-    boolean[] vis;
-
+    /**
+     * 
+     * 20201109
+     * 
+     */
+    List<List<Integer>> res = new LinkedList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<List<Integer>>();
-        List<Integer> perm = new ArrayList<Integer>();
-        vis = new boolean[nums.length];
-        Arrays.sort(nums);
-        backtrack(nums, ans, 0, perm);
-        return ans;
+        backtracking(nums, new LinkedList<>(), new boolean[nums.length]);
+        return res;
     }
 
-    public void backtrack(int[] nums, List<List<Integer>> ans, int idx, List<Integer> perm) {
-        if (idx == nums.length) {
-            ans.add(new ArrayList<Integer>(perm));
+
+    public void backtracking(int[] nums, List<Integer> list, boolean[] visited){
+        if(list.size() == nums.length){
+            if(!res.contains(list))
+                res.add(new LinkedList<>(list));
             return;
         }
-        for (int i = 0; i < nums.length; ++i) {
-            if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) {
-                continue;
+
+        for(int i = 0;i < nums.length;i++){
+            if(visited[i] == true) continue;
+            list.add(nums[i]);
+            visited[i] = true;
+            backtracking(nums, list, visited);
+            list.remove(list.size()-1);
+            visited[i] = false;
+            while(i < nums.length - 1 && nums[i] == nums[i+1]){
+                i++;
             }
-            perm.add(nums[i]);
-            vis[i] = true;
-            backtrack(nums, ans, idx + 1, perm);
-            vis[i] = false;
-            perm.remove(idx);
         }
+
     }
 
 }
