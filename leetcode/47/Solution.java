@@ -25,6 +25,7 @@ class Solution {
      */
     List<List<Integer>> res = new LinkedList<>();
     public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
         backtracking(nums, new LinkedList<>(), new boolean[nums.length]);
         return res;
     }
@@ -32,7 +33,7 @@ class Solution {
 
     public void backtracking(int[] nums, List<Integer> list, boolean[] visited){
         if(list.size() == nums.length){
-            if(!res.contains(list))
+            //if(!res.contains(list))
                 res.add(new LinkedList<>(list));
             return;
         }
