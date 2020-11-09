@@ -18,22 +18,22 @@ import java.util.TreeSet;
 class Solution {
 
     /**
-     * 排序+哈希
-     * @param strs
-     * @return
+     * 20201109
      */
     public List<List<String>> groupAnagrams(String[] strs) {
-        if (strs.length == 0) return new ArrayList();
-        Map<String, List> ans = new HashMap<String, List>();
-        for (String s : strs) {
-            char[] ca = s.toCharArray();
-            Arrays.sort(ca);
-            System.out.println(ca);
-            String key = String.valueOf(ca);
-            if (!ans.containsKey(key)) ans.put(key, new ArrayList());
-            ans.get(key).add(s);
+        if(strs.length == 0 || strs == null) return null;
+        Map<String, List> map = new HashMap<>();
+        for(String str : strs){
+            char[] c = str.toCharArray();
+            Arrays.sort(c);
+            String s = String.valueOf(c);
+            if(!map.containsKey(s)){
+                map.put(s, new ArrayList<>());
+            }
+            map.get(s).add(str);
         }
-        return new ArrayList(ans.values());
+
+        return new ArrayList(map.values());
     }
 
 
