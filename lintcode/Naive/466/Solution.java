@@ -24,10 +24,12 @@ import java.util.Map.Entry;
 
 public class Solution {
 
-    public void swapIntegers(int[] A, int index1, int index2) {
-        int tmp = A[index1];
-        A[index1] = A[index2];
-        A[index2] = tmp;
+    public int countNodes(ListNode head) {
+        if(head == null) return 0;
+        int cnt = 0;
+        for(ListNode pt = head;pt != null;pt = pt.next) 
+            cnt++;
+        return cnt;
     }
 
 }
