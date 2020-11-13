@@ -42,8 +42,8 @@ public class Solution {
         if(node == null) return 0;
         
         int leftNum = 0,rightNum = 0;
-        leftNum += dfs(node.left);
-        rightNum += dfs(node.right);   
+        leftNum = dfs(node.left);
+        rightNum = dfs(node.right);   
         
         if(node.val == player1){
             left = leftNum;
