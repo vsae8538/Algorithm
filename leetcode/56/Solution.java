@@ -30,8 +30,7 @@ class Solution{
         List<int[]> list = new ArrayList<>();
         for(int i = 1;i < intervals.length;i++){
             if(cur[1] >= intervals[i][0]){
-                cur = new int[]{getMin(cur[0], cur[1], intervals[i][0], intervals[i][1])
-                                ,getMax(cur[0], cur[1], intervals[i][0], intervals[i][1])};
+                cur = new int[]{Math.min(cur[0], intervals[i][0]), Math.max(cur[1], intervals[i][1])};
             }else{
                 list.add(cur);
                 cur = intervals[i];
@@ -42,11 +41,11 @@ class Solution{
         return list.toArray(new int[list.size()][]);
     }
 
-    public int getMax(int a,int b,int c,int d){
-        return Math.max(a, Math.max(b, Math.max(c, d)));
-    }
+    // public int getMax(int a,int b,int c,int d){
+    //     return Math.max(a, Math.max(b, Math.max(c, d)));
+    // }
 
-    public int getMin(int a,int b,int c,int d){
-        return Math.min(a, Math.min(b, Math.min(c, d)));
-    }
+    // public int getMin(int a,int b,int c,int d){
+    //     return Math.min(a, Math.min(b, Math.min(c, d)));
+    // }
 }
