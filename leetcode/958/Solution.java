@@ -22,29 +22,45 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
-class Solution{ 
-
+class Solution{
 
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
-        List<Integer> list = new ArrayList<>();
-        queue.offer(root); 
+        TreeNode prev = root;
+        queue.offer(root);
         while(!queue.isEmpty()){
-            TreeNode t = queue.poll();
-            if(t == null) list.add(null);
-            else list.add(t.val);
-            if(t != null){
-                if(t.left == null) queue.offer(null);
-                else queue.offer(t.left);
-                if(t.right == null) queue.offer(null);
-                else queue.offer(t.right);
+            TreeNode node = queue.poll();
+            if(prev == null && node != null) return false;
+            if(node != null){
+                queue.offer(node.left);
+                queue.offer(node.right);
             }
-        }
-        for(int i = 0;i < list.size() - 1;i++){
-            if(list.get(i) == null && list.get(i+1) != null) return false;
+            prev = node;
         }
         return true;
     }
+
+
+    // public boolean isCompleteTree(TreeNode root) {
+    //     Queue<TreeNode> queue = new LinkedList<>();
+    //     List<Integer> list = new ArrayList<>();
+    //     queue.offer(root); 
+    //     while(!queue.isEmpty()){
+    //         TreeNode t = queue.poll();
+    //         if(t == null) list.add(null);
+    //         else list.add(t.val);
+    //         if(t != null){
+    //             if(t.left == null) queue.offer(null);
+    //             else queue.offer(t.left);
+    //             if(t.right == null) queue.offer(null);
+    //             else queue.offer(t.right);
+    //         }
+    //     }
+    //     for(int i = 0;i < list.size() - 1;i++){
+    //         if(list.get(i) == null && list.get(i+1) != null) return false;
+    //     }
+    //     return true;
+    // }
 
     
 }
