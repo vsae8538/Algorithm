@@ -52,4 +52,17 @@ class Solution{
         list2.add(root.val);
     }
 
+
+    // public boolean isSymmetric(TreeNode root) {
+    //     return isMirror(root, root);
+    // }
+    
+    // public boolean isMirror(TreeNode t1, TreeNode t2) {
+    //     if (t1 == null && t2 == null) return true;
+    //     if (t1 == null || t2 == null) return false;
+    //     return (t1.val == t2.val) //根節點
+    //         && isMirror(t1.right, t2.left) //節點使用相反比較,右對左,左對右
+    //         && isMirror(t1.left, t2.right);
+    // }
+
 }
