@@ -29,14 +29,11 @@ class Solution{
     Set<Integer> visited;
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
         visited = new HashSet();
-        dfs(rooms, 0, rooms.size());
+        dfs(rooms, 0);
         return visited.size() == rooms.size();
     }
 
-    public void dfs(List<List<Integer>> rooms, int start, int end){
-        if(start >= end) 
-            return;
-    
+    public void dfs(List<List<Integer>> rooms, int start){
         if(visited.contains(start))
             return;
         
@@ -44,10 +41,9 @@ class Solution{
         List<Integer> list = rooms.get(start);
         for(int j = 0;j < list.size();j++){
             if(!visited.contains(list.get(j))){
-                dfs(rooms, list.get(j), end);
+                dfs(rooms, list.get(j));
             }    
         }
-
     } 
 
 }
