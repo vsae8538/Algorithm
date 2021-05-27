@@ -44,4 +44,31 @@ class Solution{
         return dp[n][1] + dp[n][2] + dp[n][3] + dp[n][4] + dp[n][5];
     }
 
+
+    public int countVowelStrings(int n) {
+        int res = 0;
+        int[][] dp = new int[n+1][5];
+        
+        for(int i = 0;i < 5;i++){
+            dp[0][i] = 1; 
+        }
+
+        int sum = 5;
+        for(int i = 1;i <= n;i++){
+            dp[i][0] = sum;
+            int num = dp[i][0];
+            for(int j = 1;j < 5;j++){
+                dp[i][j] = sum - dp[i-1][j-1];
+                sum = dp[i][j];
+                num += dp[i][j];
+            }
+            sum = num;
+        }
+
+        for(int i = 0;i < 5;i++){
+            res += dp[n-1][i];
+        }
+
+        return res;
+    }
 }
