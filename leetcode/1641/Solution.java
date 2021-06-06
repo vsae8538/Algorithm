@@ -22,53 +22,81 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
-import javax.swing.tree.TreeNode;
-
-
 class Solution{
 
-
+    /**
+     * 
+     * DP
+     */
+    int res = 0;
+    char[] vowel = {'a','e','i','o','u'};
     public int countVowelStrings(int n) {
-        int[][] dp = new int[n+1][6];        
-        
-        for(int i = 1;i < 6;i++) dp[1][i] = 1;
-
-        for(int i = 2;i <= n;i++){
-            dp[i][5]=dp[i-1][1]+dp[i-1][2]+dp[i-1][3]+dp[i-1][4]+dp[i-1][5];
-            dp[i][4]=dp[i-1][1]+dp[i-1][2]+dp[i-1][3]+dp[i-1][4];
-            dp[i][3]=dp[i-1][1]+dp[i-1][2]+dp[i-1][3];
-            dp[i][2]=dp[i-1][1]+dp[i-1][2];
-            dp[i][1]=dp[i-1][1];
-        }
-
-        return dp[n][1] + dp[n][2] + dp[n][3] + dp[n][4] + dp[n][5];
+        return dpWay(n);
     }
 
-
-    public int countVowelStrings(int n) {
-        int res = 0;
-        int[][] dp = new int[n+1][5];
+    public int dpWay(int N){
+        int[][] dp = new int[6][N+1];
         
-        for(int i = 0;i < 5;i++){
-            dp[0][i] = 1; 
+        for(int i = 1;i <= 5;i++){
+            dp[i][1] = 1;
         }
 
-        int sum = 5;
-        for(int i = 1;i <= n;i++){
-            dp[i][0] = sum;
-            int num = dp[i][0];
-            for(int j = 1;j < 5;j++){
-                dp[i][j] = sum - dp[i-1][j-1];
-                sum = dp[i][j];
-                num += dp[i][j];
+        for(int i = 2;i <= N;i++){
+            int sum = 0;
+            for(int j = 1;j <= 5;j++){
+                sum += dp[j][i-1];
             }
-            sum = num;
+
+            dp[1][i] = sum; 
+            for(int j = 2;j <= 5;j++){
+                dp[j][i] = dp[j-1][i] - dp[j-1][i-1];
+            }
+
         }
 
-        for(int i = 0;i < 5;i++){
-            res += dp[n-1][i];
+        // for(int i = 1;i <= 5;i++){
+        //     for(int j = 1;j <= N;j++){
+        //         System.out.print(dp[i][j]);
+        //     }
+        //     System.out.println();
+        // }
+
+        int res = 0;
+        for(int i = 0;i <= 5;i++){
+            res += dp[i][N];
         }
 
         return res;
     }
+
+
+
+    /*
+    
+        回溯 暴力遞歸
+    */
+    // int res = 0;
+    // char[] vowel = {'a','e','i','o','u'};
+    // public int countVowelStrings(int n) {
+    //     backtracking(n, 0, 1, new StringBuilder());
+    //     return res;
+    // }
+
+    // public void backtracking(int n, int index, int level, StringBuilder sb){
+    //     //System.out.println(sb.toString());
+    //     if(level > n){
+    //         res++;
+    //         return;
+    //     }
+
+    //     for(int i = index;i < vowel.length;i++){
+    //         sb.append(vowel[i]);
+    //         backtracking(n, i, level + 1, sb);
+    //         sb.deleteCharAt(sb.length() - 1);
+    //     }
+    // }
+
 }
+
+    
+
