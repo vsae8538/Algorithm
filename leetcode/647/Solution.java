@@ -23,27 +23,136 @@ import java.util.TreeSet;
 import java.util.Map.Entry;
 
 class Solution{
-    /*
-     * 中心擴展
+
+
+    /**
+     * 
+     * dp
      */
     public int countSubstrings(String s) {
-        int res = 0;
-        /**
-         * abba
-         * center = 1, (ab)偶數字串 left = 1 , right = 1 + (center % 2) = 2
-         * center = 2, (abb)奇數字串 left = 1, right = 1 + (center % 2) = 1    
-         */
-        for (int center = 0; center < 2 * s.length() - 1; center++) {
-            int left = center / 2;
-            int right = left + center % 2;//center % 2 => 偶數字串時right指向left+1,奇數字串時left=right
-            while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
-                res++;
-                left--;
-                right++;
+        int count = 0;
+        int len = s.length();
+        boolean[][] dp = new boolean[len][len];
+        
+        for(int i = 0;i < len;i++){
+            for(int j = 0;j < len;j++){
+                dp[i][j] = false;
             }
         }
 
-        return res;
+        for (int j = 0; j < len; j++) { 
+            for (int i = 0; i <= j; i++) {
+              if (i == j) {   //單字元 "a"
+                dp[i][j] = true;
+                count++;
+              } else if(j - i == 1 && s.charAt(i) == s.charAt(j)) { //兩個字元 "aa"
+                dp[i][j] = true;
+                count++;
+              } else if (j - i > 1 && s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1]) { 
+                dp[i][j] = true;
+                count++;
+              }
+            }
+          }
+          return count;
     }
 
+
+      
+
+
+    /**
+     * 記憶化搜索
+     */
+    // Map<String,Integer> map = new HashMap<>();
+    // int res = 0;
+    // public int countSubstrings(String s) {
+        
+    //     for(int i = 0;i < s.length();i++){
+    //         helper(s, i, s.length(), new StringBuilder());
+    //         map.clear();
+    //     }
+
+    //     return res;
+    // }
+
+    // public void helper(String s, int index, int len, StringBuilder sb){
+    //     if(sb.length() != 0 && map.get(sb.toString()) != null){
+    //         res += map.get(sb.toString());
+    //         return;
+    //     }
+        
+    //     if(sb.length() != 0 && isPalindrome(sb.toString())){
+    //         res++;
+    //         map.put(sb.toString(), res);
+    //     }
+        
+    //     if(index == len){
+    //         return;
+    //     }
+        
+    //     sb.append(s.charAt(index));
+    
+    //     helper(s, index + 1, len, sb);
+    // }
+   
+
+    // public boolean isPalindrome(String s){
+    //     int i = 0, j = s.length() - 1;
+    //     while(i < j){
+    //         if(s.charAt(i) != s.charAt(j)){
+    //             return false;
+    //         }
+    //         i++;
+    //         j--;
+    //     }
+
+    //     return true;
+    // }
+
+    /*
+     暴力遞歸
+    */
+    // int res = 0;
+    // public int countSubstrings(String s) {
+        
+    //     for(int i = 0;i < s.length();i++){
+    //         helper(s, i, s.length(), new StringBuilder());
+    //     }
+
+    //     return res;
+    // }
+
+    // public void helper(String s, int index, int len, StringBuilder sb){
+    //     if(sb.length() != 0 && isPalindrome(sb.toString())){
+    //         res++;
+    //     }
+        
+    //     if(index == len){
+    //         return;
+    //     }
+        
+    //     sb.append(s.charAt(index));
+    
+    //     helper(s, index + 1, len, sb);
+    // }
+   
+
+    // public boolean isPalindrome(String s){
+    //     int i = 0, j = s.length() - 1;
+    //     while(i < j){
+    //         if(s.charAt(i) != s.charAt(j)){
+    //             return false;
+    //         }
+    //         i++;
+    //         j--;
+    //     }
+
+    //     return true;
+    // }
+ 
+
 }
+
+    
+
