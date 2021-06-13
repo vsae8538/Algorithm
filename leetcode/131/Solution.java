@@ -24,6 +24,9 @@ import java.util.Map.Entry;
 
 class Solution{
 
+    /**
+     * 回溯 + DP預處理
+     */
     boolean[][] f;
     List<List<String>> ret = new ArrayList<List<String>>();
     List<String> ans = new ArrayList<String>();
