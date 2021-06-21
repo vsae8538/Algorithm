@@ -1,7 +1,11 @@
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,30 +20,37 @@ import java.util.SortedSet;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Map.Entry;
+
+import jdk.internal.org.jline.terminal.Size;
+
+import java.util.Random;
+import java.util.Scanner;
+
+class Solution{
 
 
-class Solution {
-
-  public int lengthOfLIS(int[] nums) {
-    int[] dp = new int[nums.length];
-    Arrays.fill(dp, 1);
-    for(int i = 0;i < nums.length;i++){
-      for(int j = 0;j < i;j++){
-        if(nums[i] > nums[j]){
-          dp[i] = Math.max(dp[i], dp[j]+1);
+    /**
+     * dp
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int max = 1;
+        for(int i = 1;i < nums.length;i++){
+            dp[i] = 1;
+            for(int j = 0;j < i;j++){
+                if(nums[i] > nums[j]){
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            max = Math.max(dp[i], max);
         }
-      }
+
+        return max;
     }
-    
-    int res = 0;
-    for(int n : dp){
-      //System.out.print(n + " ");
-      res = Math.max(n, res);
-    }
-    return res;
-  }
+  
 
 }
-
-
-
