@@ -21,123 +21,28 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
+import java.util.Random;
 
 class Solution{
+
     /**
      * dp
-     * @param coins
-     * @param amount
-     * @return
+        完全背包 - 不考慮元素順序
+        物品放外循環、target放內循環
      */
     public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-        int max = amount + 1;
-        Arrays.fill(dp, max);
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp, amount + 1);
         dp[0] = 0;
-        for(int i = 1;i <= amount;i++){
-           for(int j = 0;j < coins.length;j++){
-                if(i >= coins[j]){
-                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+        for(int coin : coins){
+            for(int j = 1;j <= amount;j++){
+                if(coin <= j){
+                    dp[j] = Math.min(dp[j], dp[j - coin] + 1);
                 }
-           } 
+            }
         }
-
 
         return dp[amount] > amount ? -1 : dp[amount];
     }
-
-
-    /**
-     * 記憶化搜索
-     */
-    // int[] memo;
-    // public int coinChange(int[] coins, int amount) {
-    //     if(coins.length == 0){
-    //         return -1;
-    //     }
-    //     memo = new int[amount];
-
-    //     return findWay(coins,amount);
-    // }
-
-    // public int findWay(int[] coins,int amount){
-    //     if(amount < 0){
-    //         return -1;
-    //     }
-    //     if(amount == 0){
-    //         return 0;
-    //     }
-
-    //     if(memo[amount-1] != 0){
-    //         return memo[amount-1];
-    //     }
-    //     int min = Integer.MAX_VALUE;
-    //     for(int i = 0;i < coins.length;i++){
-    //         int res = findWay(coins,amount-coins[i]);
-    //         if(res >= 0 && res < min){
-    //             min = res + 1; 
-    //         }
-    //     }
-    //     memo[amount-1] = (min == Integer.MAX_VALUE ? -1 : min);
-    //     return memo[amount-1];
-    // }
-
-
-    /**
-     * 暴力2
-     * TLE
-     * /
-    // public int coinChange(int[] coins, int amount) {
-
-    //     int res = backtracking(coins, amount, 0);
-    //     return  res == Integer.MAX_VALUE ? -1 : res; 
-    // }  
-
-    // public int backtracking(int[] coins, int amount, int bag){
-    //     if(amount == 0){
-    //         return bag;
-    //     }else if(amount < 0){
-    //         return Integer.MAX_VALUE;
-    //     }
-
-    //     int res = Integer.MAX_VALUE;
-
-    //     for(int i = 0;i < coins.length;i++){
-    //         amount -= coins[i];
-    //         bag++;
-    //         res = Math.min(backtracking(coins, amount, bag), res);
-    //         amount += coins[i];
-    //         bag--;
-    //     }
-
-    //     return res;
-    // }
-
-    /**
-     * TLE 暴力
-     */
-    // int res = Integer.MAX_VALUE;
-    // public int coinChange(int[] coins, int amount) {
-    //    backtracking(coins, amount, 0);
-    //    return res == Integer.MAX_VALUE ? -1 : res;
-    // }  
-
-    // public void backtracking(int[] coins, int amount, int bag){
-    //     if(amount == 0){
-    //         res = Math.min(res, bag);
-    //         return;
-    //     }else if(amount < 0){
-    //         return;
-    //     }
-
-    //     for(int i = 0;i < coins.length;i++){
-    //         amount -= coins[i];
-    //         bag++;
-    //         backtracking(coins, amount, bag);
-    //         amount += coins[i];
-    //         bag--;
-    //     }
-
-    // }
 
 }
