@@ -19,6 +19,35 @@ import java.util.TreeSet;
 class Solution {
 
     /**
+     * dp 空間優化
+     */
+    public int rob(int[] nums) {
+        if(nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return nums[0];
+        }
+        if(nums.length == 2){
+            return Math.max(nums[1], nums[0]);
+        }
+
+        return Math.max(dpWay(nums, 0, nums.length-2), dpWay(nums, 1, nums.length-1));
+    }
+
+    public int dpWay(int[] nums, int start, int end){
+        int[] dp = new int[nums.length];
+        dp[start] = nums[start];
+        dp[start+1] = Math.max(nums[start], nums[start+1]);
+
+        for(int i = start + 2;i <= end;i++){
+            dp[i] = Math.max(dp[i-1], nums[i] + dp[i-2]);
+        }
+
+        return dp[end];
+    }
+
+    /**
      * dp
      */
     public int rob(int[] nums) {
