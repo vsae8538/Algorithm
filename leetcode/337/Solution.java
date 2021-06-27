@@ -13,25 +13,79 @@ import java.util.Stack;
 
 class Solution {
 
-    public static void main(String[] args) {    
+ /*  dp + 後序 */
+ public int rob(TreeNode root) {
+    int[] dp = helper(root);
+    return Math.max(dp[0], dp[1]);
+}
+
+public int[] helper(TreeNode root){
+    if(root == null){
+        return new int[]{0,0};
     }
 
-    /*
-        dp
-    */
+    int[] left = helper(root.left);
+    int[] right = helper(root.right);
 
-    public int rob(TreeNode root) {
-        if (root == null) return 0;
+    int[] dp = new int[2];
+    //偷
+    dp[1] = root.val + left[0] + right[0]; 
+    //不偷
+    dp[0] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
 
-        int money = root.val;
-        if (root.left != null) {
-            money += (rob(root.left.left) + rob(root.left.right));
-        }
-    
-        if (root.right != null) {
-            money += (rob(root.right.left) + rob(root.right.right));
-        }
-    
-        return Math.max(money, rob(root.left) + rob(root.right));
+    return dp;
+}
+
+
+
+/**
+ * 記憶化搜索
+ */
+Map<TreeNode,Integer> map = new HashMap<>();
+public int rob(TreeNode root) {
+    if(root == null){
+        return 0;
     }
+
+    if(map.containsKey(root)){
+        return map.get(root);
+    }
+
+    int val = root.val;
+    if(root.left != null){
+        val += rob(root.left.left) + rob(root.left.right);
+    }
+    if(root.right != null){
+        val += rob(root.right.left) + rob(root.right.right);
+    }
+
+    int val2 = rob(root.left) + rob(root.right);
+
+    map.put(root, Math.max(val2, val));
+
+    return map.get(root);
+}
+
+
+/**
+ * DFS TLE 
+ * 
+ */
+// public int rob(TreeNode root) {
+//     if(root == null){
+//         return 0;
+//     }
+
+//     int val = root.val;
+//     if(root.left != null){
+//         val += rob(root.left.left) + rob(root.left.right);
+//     }
+//     if(root.right != null){
+//         val += rob(root.right.left) + rob(root.right.right);
+//     }
+
+//     int val2 = rob(root.left) + rob(root.right);
+
+//     return Math.max(val2, val);
+// }
 }
