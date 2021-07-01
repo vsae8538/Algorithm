@@ -24,6 +24,35 @@ import java.util.Map.Entry;
 
 class Solution{
 
+  /**
+   * dp
+   * @param s
+   * @return
+   */
+  public int countSubstrings(String s) {
+    int len = s.length();
+    boolean[][] dp = new boolean[len+1][len+1];
+    
+    int res = 0;
+
+    for(int i = len - 1;i >= 0;i--){
+        for(int j = i;j < len;j++){
+            if(s.charAt(i) == s.charAt(j)){
+                if(j - i <= 1){
+                    res++;
+                    dp[i][j] = true;
+                }
+                else if(dp[i+1][j-1]){
+                    res++;
+                    dp[i][j] = dp[i+1][j-1];   
+                }
+            }
+        }
+    }
+
+    return res;
+}
+
 
     /**
      * 
