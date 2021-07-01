@@ -25,7 +25,11 @@ import java.util.Random;
 
 class Solution{
     
-
+    /**
+     * dp
+     * @param s
+     * @return
+     */
     public int longestPalindromeSubseq(String s) {
         int len = s.length();
         int[][] dp = new int[len+1][len+1];
@@ -46,6 +50,62 @@ class Solution{
 
         return dp[0][len - 1];
     }
+
+    /**
+     * 記憶化搜索
+     */
+    int[][] memo;
+    public int longestPalindromeSubseq(String s) {
+        memo = new int[s.length()][s.length()]; 
+        return dfs(s, 0, s.length()-1);
+    }
+
+    public int dfs(String s, int start, int end){
+        if(memo[start][end] != 0) return memo[start][end];
+        if(start == end){
+            return 1;
+        }
+        if(start > end){
+            return 0;
+        }
+    
+        int res = 0;
+        if(s.charAt(start) == s.charAt(end)){
+            res = dfs(s, start+1, end-1) + 2;
+        }else{
+            res = Math.max(dfs(s, start+1,end), dfs(s, start,end-1));
+        }
+
+        memo[start][end] = res;
+        return memo[start][end];
+    }
+
+    /**
+     * DFS TLE
+     * @param s
+     * @return
+     */
+    public int longestPalindromeSubseq(String s) {
+        return dfs(s, 0, s.length()-1);
+    }
+
+    public int dfs(String s, int start, int end){
+        if(start == end){
+            return 1;
+        }
+        if(start > end){
+            return 0;
+        }
+        int res = 0;
+        if(s.charAt(start) == s.charAt(end)){
+            res = dfs(s, start+1, end-1) + 2;
+        }else{
+            res = Math.max(dfs(s, start+1,end), dfs(s, start,end-1));
+        }
+
+        return res;
+    }
+
 
 }   
 
