@@ -21,35 +21,63 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Map.Entry;
+import java.util.Random;
 
 class Solution{
+
+
+    /**
+     * 數組翻轉
+     * @param nums
+     * @param k
+     */
     public void rotate(int[] nums, int k) {
         k %= nums.length;
-        reverse(nums, 0, nums.length - 1);
-        reverse(nums, 0, k - 1);
-        reverse(nums, k, nums.length - 1);
+        reverse(nums, 0, nums.length-1);
+        reverse(nums, 0, k-1);
+        reverse(nums, k, nums.length-1);
     }
 
-    public void reverse(int[] nums, int start, int end) {
-        while (start < end) {
-            int temp = nums[start];
+    public void reverse(int[] nums, int start, int end){
+        while(start < end){
+            int tmp = nums[start];
             nums[start] = nums[end];
-            nums[end] = temp;
-            start += 1;
-            end -= 1;
+            nums[end] = tmp;
+            start++;
+            end--;
         }
     }
+    
 
+    /**
+     * TLE
+
+     */
+    public void rotate(int[] nums, int k) {
+        int n = 0;
+        while(n < k){
+            int tmp = nums[0];
+            for(int i = 1;i < nums.length;i++){
+                int num = nums[i];
+                nums[i] = tmp;
+                tmp = num;
+            } 
+            nums[0] = tmp;
+            n++;
+        }
+
+    }
 
     // public void rotate(int[] nums, int k) {
-    //     int[] res = new int[nums.length];
+    //     int[] arr = new int[nums.length];
     //     for(int i = 0;i < nums.length;i++){
-    //         int index = (i + k) % nums.length;
-    //         res[index] = nums[i];
+    //         arr[(i + k) % nums.length] = nums[i];
     //     }
-        
     //     for(int i = 0;i < nums.length;i++){
-    //         nums[i] = res[i];
+    //         arr[i] = nums[i];
     //     }
     // }
-}
+
+}   
+
+
